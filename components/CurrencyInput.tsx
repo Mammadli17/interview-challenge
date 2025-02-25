@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   picker: {
-    height: 32,
+    height: 35,
     width: 60,
     borderRadius: 3,
     borderColor: '#000',
