@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
 
@@ -21,6 +21,8 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
     onCurrencyChange,
     excludeCurrency,
 }) => {
+    const [isEditing, setIsEditing] = useState(false);
+
     return (
         <View style={styles.container}>
             <Text style={styles.label}>{label}:</Text>
@@ -30,9 +32,11 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
                 style={styles.input}
                 value={amount}
                 keyboardType="numeric"
+                onFocus={() => setIsEditing(true)}
+                onBlur={() => setIsEditing(false)}
                 onChangeText={(text) => {
-                    const numericValue = text.replace(/[^0-9.]/g, ''); 
-                    onAmountChange(numericValue);
+                    const numericValue = text.replace(/[^0-9.]/g, '');
+                    onAmountChange(numericValue || '0'); // Eğer boşsa '0' ata
                 }}
             />
 
@@ -44,7 +48,9 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
                     .map((c) => ({ key: c, label: c }))}
                 initValue={selectedCurrency}
                 cancelText="Close"
-                onChange={(option) => onCurrencyChange(option.label)}
+                onChange={(option) => {
+                    onCurrencyChange(option.label);
+                }}
             />
         </View>
     );
