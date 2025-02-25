@@ -36,7 +36,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
                 onBlur={() => setIsEditing(false)}
                 onChangeText={(text) => {
                     const numericValue = text.replace(/[^0-9.]/g, '');
-                    onAmountChange(numericValue || '0'); // Eğer boşsa '0' ata
+                    onAmountChange(numericValue );
                 }}
             />
 
